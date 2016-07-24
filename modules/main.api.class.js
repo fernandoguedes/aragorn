@@ -1,5 +1,6 @@
 'use strict';
 
+// Require node_modules dependencies
 let path = require('path');
 let mongoose = require(path.join(__dirname, '../db/', 'mongoose.conf'));
 
@@ -8,11 +9,61 @@ let schedulesSchema = require(path.join(__dirname, '../db/schemas/', 'schedule')
 
 module.exports = class MainAPI {
 
-    getSchedule(cinema) {
+    getSchedule(cinema, city) {
         return new Promise(
             function (resolve, reject) {
-                let cinemaStr = { 'name': cinema };
-                schedulesSchema.find(cinemaStr).lean().exec(function(err, cinemaObj) {
+
+                if (!cinema) {
+                    return reject(400, 'Solicitação incorreta, o parâmetro cinema é necessário.')
+                }
+
+                if (!city) {
+                    return reject(400, 'Solicitação incorreta, o parâmetro cidade é necessário.')
+                }
+
+                let condition = { 'name': cinema, 'city' : city  };
+
+                schedulesSchema.find(condition).lean().exec(function(err, resultsArr) {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    return resolve(resultsArr);
+                });
+            });
+    }
+
+    getScheduleFromCinema(cinema) {
+        return new Promise(
+            function (resolve, reject) {
+
+                if (!cinema) {
+                    return reject(400, 'Solicitação incorreta, o parâmetro cinema é necessário.')
+                }
+
+                let condition = { 'name': cinema };
+
+                schedulesSchema.find(condition).lean().exec(function(err, cinemaObj) {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    return resolve(cinemaObj);
+                });
+            });
+    }
+
+    getScheduleFromCity(city) {
+        return new Promise(
+            function (resolve, reject) {
+
+                if (!city) {
+                    return reject(400, 'Solicitação incorreta, o parâmetro cidade é necessário.')
+                }
+
+                let condition = { 'city': city };
+
+                schedulesSchema.find(condition).lean().exec(function(err, cinemaObj) {
                     if (err) {
                         return reject(err);
                     }

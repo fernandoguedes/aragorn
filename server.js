@@ -5,21 +5,39 @@ let path = require('path');
 let server = restify.createServer();
 let port = 3000;
 
-let MainAPI = require(path.join(__dirname, '', 'index')).API;
+let API = require(path.join(__dirname, '', 'index')).MainAPI;
 
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
 
-server.get('/schedule/:name', function(req, res) {
-    MainAPI.getSchedule(req.params.name)
+server.get('/programacao/cinema/:cinema', function(req, res) {
+    API.getScheduleFromCinema(req.params.cinema)
         .then(function(json) {
             res.send(200, json);
         })
         .catch(function(err) {
-            console.log(err);
-            res.charSet('utf-8');
-            res.send(500);
+            res.send(err);
+        });
+});
+
+server.get('/programacao/cinema/:cinema/cidade/:city', function(req, res) {
+    API.getSchedule(req.params.cinema, req.params.city)
+        .then(function(json) {
+            res.send(200, json);
+        })
+        .catch(function(err) {
+            res.send(err);
+        });
+});
+
+server.get('/programacao/cidade/:city', function(req, res) {
+    API.getScheduleFromCity(req.params.city)
+        .then(function(json) {
+            res.send(200, json);
+        })
+        .catch(function(err) {
+            res.send(err);
         });
 });
 

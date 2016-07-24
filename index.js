@@ -7,5 +7,5 @@ let path = require('path');
 let MainAPI = require(path.join(__dirname, 'modules', 'main.api.class'));
 
 module.exports = {
-    API: new MainAPI()
+    MainAPI: new MainAPI()
 }

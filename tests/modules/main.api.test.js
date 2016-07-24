@@ -2,24 +2,62 @@
 
 let expect = require('chai').expect;
 let path = require('path');
+let mongoose = require('mongoose');
 
 // Import classes for testing
-let MainAPI = require(path.join(__dirname, '../../modules', 'main.api.class'));
+let API = require(path.join(__dirname, '../../', 'index')).MainAPI;
+
+// Import schemas and mocks
+let schedulesSchema = require(path.join(__dirname, '../../db/schemas/', 'schedule'));
+let mocks = require(path.join(__dirname, '../', 'mocks'));
 
 describe('MainAPI', () => {
 
-    it('getSchedule(): Returns JSON schedule of cinema', (done) => {
-        let API = new MainAPI();
-        let cinema = 'cinemark';
+    before(function() {
+        // Remove all elements to execute tests
+        schedulesSchema.remove({}, function(err) {
+            if (err) {
+                console.log(err);
+            }
 
-        API.getSchedule(cinema)
+            schedulesSchema.insertMany(mocks.schedule, (err, docs) => {
+              if (err) {
+                  console.log(err);
+              }
+
+            });
+
+        });
+    });
+
+    it('getSchedule(): Returns JSON schedule according with cinema and city', (done) => {
+        let cinema = 'cinemark';
+        let city = 'Foz do Iguaçu';
+
+        API.getSchedule(cinema, city)
             .then(function(json) {
-                console.log(json);
                 done();
             })
-            .catch(function(err) {
-                console.log(err);
+            .catch(done);
+    });
+
+    it('getScheduleFromCity(): Returns JSON schedule accordint with city', (done) => {
+        let city = 'Foz do Iguaçu';
+
+        API.getScheduleFromCity(city)
+            .then(function(json) {
                 done();
-            });
+            })
+            .catch(done);
+    });
+
+    it('getScheduleFromCinema(): Returns JSON schedule accordint with city', (done) => {
+        let cinema = 'cinemark';
+
+        API.getScheduleFromCinema(cinema)
+            .then(function(json) {
+                done();
+            })
+            .catch(done);
     });
 });
