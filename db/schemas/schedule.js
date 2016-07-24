@@ -4,7 +4,7 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 let cinemaSchedule = new Schema({
-    name: String,
+    cinema: String,
     place: String,
     city: String,
     place_normalized: String,
