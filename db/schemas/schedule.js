@@ -7,6 +7,8 @@ let cinemaSchedule = new Schema({
     name: String,
     place: String,
     city: String,
+    place_normalized: String,
+    city_normalized: String,
     sessions: [{
         title: String,
         censorship: String,

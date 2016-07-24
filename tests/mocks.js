@@ -2,9 +2,11 @@ module.exports = {
     schedule: [
         {
             "_id": "5791a250c79a51de17db2ac2",
-            "name": "cinemark",
+            "cinema": "cinemark",
             "city": "Foz do Iguaçu",
             "place": "Foz do Iguaçu",
+            "city_normalized": "foz do iguacu",
+            "place_normalized": "foz do iguacu",
             "sessions": [
                 {
                     "title": "A Era do Gelo: O Big Bang",
@@ -111,7 +113,7 @@ module.exports = {
                     "censorship": "12 Anos",
                     "special": false,
                     "_id": "5791a250c79a51de17db2ac5",
-                    "hours": [
+                    "hours": [Foz do Iguaçu
                         "19h00",
                         "21h20"
                     ]
@@ -140,9 +142,11 @@ module.exports = {
         },
         {
             "_id": "5791a250c79a51de17db2948",
-            "name": "cinemark",
+            "cinema": "cinemark",
             "city": "Cuiabá",
             "place": "Goiabeiras Shopping",
+            "city_normalized": "cuiaba",
+            "place_normalized": "goiabeiras shopping",
             "sessions": [
                 {
                     "title": "A Era do Gelo: O Big Bang",
@@ -283,9 +287,11 @@ module.exports = {
         },
         {
             "_id": "5791a250c79a51de17db2965",
-            "name": "cinemark",
+            "cinema": "cinemark",
             "city": "Goiânia",
             "place": "Passeio das Águas",
+            "city_normalized": "goiania",
+            "place_normalized": "passeio das aguas",
             "sessions": [
                 {
                     "title": "A Era do Gelo: O Big Bang",
@@ -428,9 +434,11 @@ module.exports = {
         },
         {
             "_id": "5791a250c79a51de17db2982",
-            "name": "cinemark",
+            "cinema": "cinemark",
             "city": "São Paulo",
             "place": "Patio Paulista",
+            "city_normalized": "sao paulo",
+            "place_normalized": "patio paulista",
             "sessions": [
                 {
                     "title": "A Era do Gelo: O Big Bang",
