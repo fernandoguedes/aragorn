@@ -113,7 +113,7 @@ module.exports = {
                     "censorship": "12 Anos",
                     "special": false,
                     "_id": "5791a250c79a51de17db2ac5",
-                    "hours": [Foz do Iguaçu
+                    "hours": [
                         "19h00",
                         "21h20"
                     ]
