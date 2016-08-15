@@ -3,7 +3,7 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-let cinemaSchedule = new Schema({
+const cinemaSchedule = new Schema({
     cinema: String,
     place: String,
     city: String,
@@ -14,7 +14,11 @@ let cinemaSchedule = new Schema({
         censorship: String,
         special: Boolean,
         hours: [String]
-    }]
+    }],
+    recorded: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 let schedulesSchema = mongoose.model('schedules', cinemaSchedule);
