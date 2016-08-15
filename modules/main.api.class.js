@@ -21,7 +21,13 @@ module.exports = class MainAPI {
                     return reject(400, 'Solicitação incorreta, o parâmetro cidade é necessário.')
                 }
 
-                let condition = { 'cinema': cinema, 'city_normalized' : city  };
+                let condition = {
+                    cinema: cinema,
+                    city_normalized : city,
+                    recorded: {
+                        $lte: new Date()
+                    }
+                };
 
                 schedulesSchema.find(condition).lean().exec(function(err, resultsArr) {
                     if (err) {
@@ -41,7 +47,12 @@ module.exports = class MainAPI {
                     return reject(400, 'Solicitação incorreta, o parâmetro cinema é necessário.')
                 }
 
-                let condition = { 'cinema': cinema };
+                let condition = {
+                    cinema: cinema,
+                    recorded: {
+                        $lte: new Date()
+                    }
+                };
 
                 schedulesSchema.find(condition).lean().exec(function(err, cinemaObj) {
                     if (err) {
@@ -61,7 +72,12 @@ module.exports = class MainAPI {
                     return reject(400, 'Solicitação incorreta, o parâmetro cidade é necessário.')
                 }
 
-                let condition = { 'city_normalized': city };
+                let condition = {
+                    city_normalized: city,
+                    recorded: {
+                        $lte: new Date()
+                    }
+                };
 
                 schedulesSchema.find(condition).lean().exec(function(err, cinemaObj) {
                     if (err) {
