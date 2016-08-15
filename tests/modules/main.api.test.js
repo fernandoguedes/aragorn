@@ -36,16 +36,18 @@ describe('MainAPI', () => {
 
         API.getSchedule(cinema, city)
             .then(function(json) {
+                expect(json).to.not.be.null;
                 done();
             })
             .catch(done);
     });
 
     it('getScheduleFromCity(): Returns JSON schedule accordint with city', (done) => {
-        let city = 'Foz do Iguaçu';
+        let city = 'foz do iguacu';
 
         API.getScheduleFromCity(city)
             .then(function(json) {
+                expect(json).to.not.be.null;
                 done();
             })
             .catch(done);
@@ -56,6 +58,7 @@ describe('MainAPI', () => {
 
         API.getScheduleFromCinema(cinema)
             .then(function(json) {
+                expect(json).to.not.be.null;
                 done();
             })
             .catch(done);
