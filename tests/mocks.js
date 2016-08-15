@@ -6,6 +6,7 @@ module.exports = {
             "place": "Foz do Iguaçu",
             "city_normalized": "foz do iguacu",
             "place_normalized": "foz do iguacu",
+            "recorded": new Date(),
             "sessions": [
                 {
                     "title": "A Era do Gelo: O Big Bang",
