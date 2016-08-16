@@ -9,6 +9,20 @@ let schedulesSchema = require(path.join(__dirname, '../db/schemas/', 'schedule')
 
 module.exports = class MainAPI {
 
+    /**
+     * @apiVersion 0.0.1
+     * @api {get} /progracao/cinema/:cinema/cidade/:cidade getSchedule
+     * @apiGroup Schedule
+     * @apiDescription Retorna programação disponível do cinema e cidade especificada
+     * @apiName getSchedule
+     * @apiParam {String} cinema Nome do cinema
+     * @apiParam {String} cidade Nome da cidade
+     * @apiExample {curl} Example usage:
+     *     curl -i http://api.nocinema.info/programacao/cinemark/cidade/florianopolis
+     * @apiSuccess {Object[]} schedules Array de programação de cinemas
+     * @apiSuccess {String} schedules.cinema Nome do cinema
+     */
+
     getSchedule(cinema, city) {
         return new Promise(
             function (resolve, reject) {
@@ -39,6 +53,20 @@ module.exports = class MainAPI {
             });
     }
 
+    /**
+     * @apiVersion 0.0.1
+     * @api {get} /progracao/cinema/:cinema getScheduleFromCinema
+     * @apiGroup Schedule
+     * @apiDescription Retorna programação disponível do cinema
+     * @apiName getScheduleFromCinema
+     * @apiParam {String} nome Nome normalizado ou não do cinema
+     * @apiSuccessExample {json} Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *       "firstname": "John",
+     *       "lastname": "Doe"
+     *     }
+     */
     getScheduleFromCinema(cinema) {
         return new Promise(
             function (resolve, reject) {
