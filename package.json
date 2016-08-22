@@ -4,8 +4,9 @@
   "description": "Aragorn is a service of nocinema, an api that provides movie schedules.",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register --recursive tests/modules/ --timeout 10000",
-    "doc": "./node_modules/.bin/apidoc --help" 
+    "doc": "./node_modules/.bin/apidoc --help"
   },
   "repository": {
     "type": "git",
