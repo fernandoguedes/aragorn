@@ -24,33 +24,35 @@ module.exports = class MainAPI {
      */
 
     getSchedule(cinema, city) {
-        return new Promise(
-            function (resolve, reject) {
 
-                if (!cinema) {
-                    return reject(400, 'Solicitação incorreta, o parâmetro cinema é necessário.')
+        return new Promise((resolve, reject) => {
+
+            if (!cinema) {
+                return reject(400, 'Solicitação incorreta, o parâmetro cinema é necessário.')
+            }
+
+            if (!city) {
+                return reject(400, 'Solicitação incorreta, o parâmetro cidade é necessário.')
+            }
+
+            let today = this.getDate();
+
+            let condition = {
+                cinema: cinema,
+                city_normalized : city,
+                recorded: {
+                    $gte: today
+                }
+            };
+
+            schedulesSchema.find(condition).lean().exec(function(err, resultsArr) {
+                if (err) {
+                    return reject(err);
                 }
 
-                if (!city) {
-                    return reject(400, 'Solicitação incorreta, o parâmetro cidade é necessário.')
-                }
-
-                let condition = {
-                    cinema: cinema,
-                    city_normalized : city,
-                    recorded: {
-                        $lte: new Date()
-                    }
-                };
-
-                schedulesSchema.find(condition).lean().exec(function(err, resultsArr) {
-                    if (err) {
-                        return reject(err);
-                    }
-
-                    return resolve(resultsArr);
-                });
+                return resolve(resultsArr);
             });
+        });
     }
 
     /**
@@ -68,53 +70,63 @@ module.exports = class MainAPI {
      *     }
      */
     getScheduleFromCinema(cinema) {
-        return new Promise(
-            function (resolve, reject) {
 
-                if (!cinema) {
-                    return reject(400, 'Solicitação incorreta, o parâmetro cinema é necessário.')
+        return new Promise((resolve, reject) => {
+            if (!cinema) {
+                return reject(400, 'Solicitação incorreta, o parâmetro cinema é necessário.')
+            }
+
+            let today = this.getDate();
+
+            let condition = {
+                cinema: cinema,
+                recorded: {
+                    $gte: today
+                }
+            };
+
+            schedulesSchema.find(condition).lean().exec(function(err, cinemaObj) {
+                if (err) {
+                    return reject(err);
                 }
 
-                let condition = {
-                    cinema: cinema,
-                    recorded: {
-                        $lte: new Date()
-                    }
-                };
-
-                schedulesSchema.find(condition).lean().exec(function(err, cinemaObj) {
-                    if (err) {
-                        return reject(err);
-                    }
-
-                    return resolve(cinemaObj);
-                });
+                return resolve(cinemaObj);
             });
+        });
     }
 
     getScheduleFromCity(city) {
-        return new Promise(
-            function (resolve, reject) {
 
-                if (!city) {
-                    return reject(400, 'Solicitação incorreta, o parâmetro cidade é necessário.')
+        return new Promise((resolve, reject) => {
+            if (!city) {
+                return reject(400, 'Solicitação incorreta, o parâmetro cidade é necessário.')
+            }
+
+            let today = this.getDate();
+
+            let condition = {
+                city_normalized: city,
+                recorded: {
+                    $gte: today
+                }
+            };
+
+            schedulesSchema.find(condition).lean().exec(function(err, cinemaObj) {
+                if (err) {
+                    return reject(err);
                 }
 
-                let condition = {
-                    city_normalized: city,
-                    recorded: {
-                        $lte: new Date()
-                    }
-                };
-
-                schedulesSchema.find(condition).lean().exec(function(err, cinemaObj) {
-                    if (err) {
-                        return reject(err);
-                    }
-
-                    return resolve(cinemaObj);
-                });
+                return resolve(cinemaObj);
             });
+        });
+    }
+
+    getDate() {
+        let now = Date.now();
+        let oneDay = ( 1000 * 60 * 60 * 24 );
+        let today = new Date(now - (now % oneDay));
+
+        return today;
     }
 
 }
