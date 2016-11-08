@@ -1,6 +1,6 @@
 {
   "name": "aragorn-nocinema",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Aragorn is a service of nocinema, an api that provides movie schedules.",
   "main": "index.js",
   "engines": "4.5.0",
