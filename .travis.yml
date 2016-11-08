@@ -3,3 +3,5 @@ node_js:
   - 5
 services:
   - mongodb
+env:
+  - "mongodb://127.0.0.1/nocinema"
