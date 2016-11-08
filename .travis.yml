@@ -4,4 +4,4 @@ node_js:
 services:
   - mongodb
 env:
-  - "mongodb://127.0.0.1/nocinema"
+  - NOCINEMADB="mongodb://127.0.0.1/nocinema"
