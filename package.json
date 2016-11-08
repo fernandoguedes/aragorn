@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "test": "mocha --compilers js:babel-core/register --recursive tests/modules/ --timeout 10000",
-    "doc": "apidoc doc"
+    "doc": "apidoc -i modules/ -o doc/"
   },
   "repository": {
     "type": "git",
