@@ -1,12 +1,13 @@
 {
   "name": "aragorn-nocinema",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Aragorn is a service of nocinema, an api that provides movie schedules.",
   "main": "index.js",
+  "engines": "4.5.0",
   "scripts": {
     "start": "node server.js",
     "test": "mocha --compilers js:babel-core/register --recursive tests/modules/ --timeout 10000",
-    "doc": "apidoc doc"
+    "doc": "apidoc -i modules/ -o doc/"
   },
   "repository": {
     "type": "git",
@@ -30,7 +31,6 @@
     "babel-core": "^6.9.1",
     "babel-preset-es2015": "^6.9.0",
     "chai": "^3.5.0",
-    "forever": "^0.15.2",
     "mocha": "^2.5.3"
   },
   "dependencies": {
