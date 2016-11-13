@@ -11,8 +11,8 @@ module.exports = class MainAPI {
 
     /**
      @apiVersion 0.0.1
-     @api {get} /progracao/cinema/:cinema/cidade/:cidade getSchedule
-     @apiGroup Schedule
+     @api {get} /programacao/cinema/:cinema/cidade/:cidade Por cinema e cidade
+     @apiGroup Programacao
      @apiDescription Retorna a programação diária do cinema e aplicando filtro de acordo com a cidade especificada
      @apiName getSchedule
      @apiParam {String} cinema Nome do cinema
@@ -92,8 +92,8 @@ module.exports = class MainAPI {
 
 	/**
      @apiVersion 0.0.1
-     @api {get} /progracao/cinema/:cinema getScheduleFromCinema
-     @apiGroup Schedule
+     @api {get} /progracao/cinema/:cinema Por cinema
+     @apiGroup Programacao
      @apiDescription Retorna a programação diária das salas disponíveis em todo o território brasileiro
      @apiName getScheduleFromCinema
      @apiParam {String} cinema Nome do cinema
@@ -196,8 +196,8 @@ module.exports = class MainAPI {
 
 	/**
      @apiVersion 0.0.1
-     @api {get} /progracao/cidade/:cidade getScheduleFromCity
-     @apiGroup Schedule
+     @api {get} /progracao/cidade/:cidade Por cidade
+     @apiGroup Programacao
      @apiDescription Retorna a programação diária dos cinemas da cidade especificada como parâmetro
      @apiName getScheduleFromCity
      @apiParam {String} cidade Nome da cidade

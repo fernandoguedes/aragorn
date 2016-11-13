@@ -1,9 +1,9 @@
 {
-  "name": "NoCinema Developers",
+  "name": "nocinema dev",
   "version": "0.0.1",
-  "description": "Plataforma Open Data das programações dos cinemas brasileiros",
+  "description": "Dados de cinemas abertos por um Brasil mais cultural",
   "apidoc": {
-    "title": "Custom apiDoc browser title",
-    "url" : "https://api.github.com/v1"
+    "title": "NoCinema.info",
+    "url" : "http://api.nocinema.info"
   }
 }
