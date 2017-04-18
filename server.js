@@ -11,6 +11,14 @@ server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
 
+server.use(
+  function crossOrigin(req,res,next){
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    return next();
+  }
+);
+
 server.get('/programacao/cinema/:cinema', function(req, res) {
     API.getScheduleFromCinema(req.params.cinema)
         .then(function(json) {
