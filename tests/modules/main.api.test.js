@@ -53,11 +53,23 @@ describe('MainAPI', () => {
             .catch(done);
     });
 
+
     it('getScheduleFromCinema(): Returns JSON schedule accordint with city', (done) => {
         let cinema = 'cinemark';
 
         API.getScheduleFromCinema(cinema)
             .then(function(json) {
+                expect(json).to.not.be.null;
+                done();
+            })
+            .catch(done);
+    });
+
+    it.only('getNextSessionByCity(): Returns JSON schedule accordint with city', (done) => {
+        let city = 'florianopolis';
+
+        API.getNextSessionByCity(city)
+            .then((json) => {
                 expect(json).to.not.be.null;
                 done();
             })

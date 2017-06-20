@@ -13,8 +13,8 @@ server.use(restify.bodyParser());
 
 server.use(
   function crossOrigin(req,res,next){
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With');
     return next();
   }
 );
@@ -39,8 +39,19 @@ server.get('/programacao/cinema/:cinema/cidade/:city', function(req, res) {
         });
 });
 
+
 server.get('/programacao/cidade/:city', function(req, res) {
     API.getScheduleFromCity(req.params.city)
+        .then(function(json) {
+            res.send(200, json);
+        })
+        .catch(function(err) {
+            res.send(err);
+        });
+});
+
+server.get('/programacao/cidade/:city/proxima', function(req, res) {
+    API.getNextSessionByCity(req.params.city)
         .then(function(json) {
             res.send(200, json);
         })

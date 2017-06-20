@@ -248,8 +248,8 @@ module.exports = class MainAPI {
                 return reject(400, 'Solicitação incorreta, o parâmetro cidade é necessário.')
             }
 
+            //let today = this.getDateCondition();
             let today = this.getDate();
-
             let condition = {
                 city_normalized: city,
                 recorded: {
@@ -267,12 +267,58 @@ module.exports = class MainAPI {
         });
     }
 
+    getNextSessionByCity(city) {
+        return new Promise((resolve, reject) => {
+            this.getScheduleFromCity(city)
+                .then((response) => {
+                    let now = new Date();
+                    now = `${now.getHours()}:${now.getMinutes()}`;
+                    let nextSession = { title: '', cinema: '', city: '', hour: '23:59', place: '' };
+
+                    response.forEach((cinema) => {
+                        cinema.sessions.forEach((session) => {
+                            session.hours.forEach((hour) => {
+                                if (hour > now && hour < nextSession.hour) {
+                                    nextSession.title = session.title;
+                                    nextSession.hour = hour;
+                                    nextSession.cinema = cinema.cinema;
+                                    nextSession.place = cinema.place;
+                                    nextSession.city = cinema.city;
+                                }
+                            });
+                        });
+                    });        
+
+                    return resolve(nextSession);
+                })
+                .catch((err) => {
+                    console.log(err)
+                    return reject(err);
+                });
+        });
+    }
+
     getDate() {
         let now = Date.now();
         let oneDay = ( 1000 * 60 * 60 * 24 );
         let today = new Date(now - (now % oneDay));
 
         return today;
+    }
+
+    getDateCondition() {
+        let gte = new Date();
+        gte.setHours(0,0,0,0);
+
+        let lt = new Date();
+        lt.setHours(23,59,59,999);
+
+        let condition = {
+            $gte: gte,
+            $lt: lt
+        };
+
+        return condition;
     }
 
 }
