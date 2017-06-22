@@ -3,7 +3,7 @@
 let restify = require('restify');
 let path = require('path');
 let server = restify.createServer();
-let port = 3000;
+let port = 3030;
 
 let API = require(path.join(__dirname, '', 'index')).MainAPI;
 
@@ -52,6 +52,16 @@ server.get('/programacao/cidade/:city', function(req, res) {
 
 server.get('/programacao/cidade/:city/proxima', function(req, res) {
     API.getNextSessionByCity(req.params.city)
+        .then(function(json) {
+            res.send(200, json);
+        })
+        .catch(function(err) {
+            res.send(err);
+        });
+});
+
+server.get('/cidades', function(req, res) {
+    API.getCities()
         .then(function(json) {
             res.send(200, json);
         })

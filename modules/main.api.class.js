@@ -248,7 +248,6 @@ module.exports = class MainAPI {
                 return reject(400, 'Solicitação incorreta, o parâmetro cidade é necessário.')
             }
 
-            //let today = this.getDateCondition();
             let today = this.getDate();
             let condition = {
                 city_normalized: city,
@@ -273,6 +272,7 @@ module.exports = class MainAPI {
                 .then((response) => {
                     let now = new Date();
                     now = `${now.getHours()}:${now.getMinutes()}`;
+
                     let nextSession = { title: '', cinema: '', city: '', hour: '23:59', place: '' };
 
                     response.forEach((cinema) => {
@@ -292,9 +292,35 @@ module.exports = class MainAPI {
                     return resolve(nextSession);
                 })
                 .catch((err) => {
-                    console.log(err)
                     return reject(err);
                 });
+        });
+    }
+
+    getCities() {
+        return new Promise((resolve, reject) => {
+            let today = this.getDate();
+            let condition = {
+                recorded: {
+                    $gte: today
+                }
+            };
+
+            schedulesSchema.find(condition).lean().exec(function(err, cinemaObj) {
+                if (err) {
+                    return reject(err);
+                }
+
+                let cities = [];
+
+                cinemaObj.map(value => {
+                    if (cities.indexOf(value.city) === -1) {
+                        cities.push(value.city);
+                    }
+                });
+
+                return resolve(cities);
+            });
         });
     }
 
@@ -305,20 +331,4 @@ module.exports = class MainAPI {
 
         return today;
     }
-
-    getDateCondition() {
-        let gte = new Date();
-        gte.setHours(0,0,0,0);
-
-        let lt = new Date();
-        lt.setHours(23,59,59,999);
-
-        let condition = {
-            $gte: gte,
-            $lt: lt
-        };
-
-        return condition;
-    }
-
 }
