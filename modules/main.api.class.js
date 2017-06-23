@@ -319,6 +319,8 @@ module.exports = class MainAPI {
                     }
                 });
 
+                cities = cities.sort();
+
                 return resolve(cities);
             });
         });
