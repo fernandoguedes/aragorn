@@ -287,7 +287,7 @@ module.exports = class MainAPI {
                                 }
                             });
                         });
-                    });        
+                    });
 
                     return resolve(nextSession);
                 })
@@ -312,14 +312,14 @@ module.exports = class MainAPI {
                 }
 
                 let cities = [];
+                let control = [];
 
                 cinemaObj.map(value => {
-                    if (cities.indexOf(value.city) === -1) {
-                        cities.push(value.city);
+                    if (control.indexOf(value.city_normalized) === -1) {
+                        control.push(value.city_normalized);
+                        cities.push({ name: value.city, normalized: value.city_normalized });
                     }
                 });
-
-                cities = cities.sort();
 
                 return resolve(cities);
             });

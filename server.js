@@ -3,7 +3,7 @@
 let restify = require('restify');
 let path = require('path');
 let server = restify.createServer();
-let port = 3030;
+let port = 3000;
 
 let API = require(path.join(__dirname, '', 'index')).MainAPI;
 
